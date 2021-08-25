@@ -1,0 +1,92 @@
+---
+title: "PHS Summer Prep"
+output:
+  learnr::tutorial:
+    theme: paper
+    version: 1.1
+    css: www/style.css
+    js: www/keep_alive.js
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(fig.align = "center",
+                      cache = TRUE)
+tutorial_options(exercise.timelimit = 60)
+options(digits = 5, scipen = 999)
+
+pmf_func <- function(x, fx){
+  par(mgp = c(3, 1, 0), mar = c(4, 4, 1, 1))
+  plot(x, fx, type = "h", col = "blue", xaxt = "n", main = "pmf", ylab = "", xlab = "")
+  abline(h = 0)
+  points(x, fx, col = "blue", pch = 19)
+  axis(1, xaxp = c(min(x), max(x), length(x) - 1))
+  title(ylab="f(x)", line = 2, xlab = "x")
+}
+
+cdf_func <- function(x, fx){
+  par(mgp = c(3, 1, 0), mar = c(4, 4, 1, 1))
+  cdf <- c(0, cumsum(fx))
+  plot(stepfun(x, cdf),xlab = "",ylab = "", verticals = FALSE, do.points = TRUE, pch = 16, main = "cdf", col = "red")
+  points(x, cdf[-length(cdf)], col = "red")
+  title(ylab="F(x)", line = 2, xlab = "x")
+}
+
+```
+```{r ralive, context="render", echo=FALSE}
+textOutput("keep_alive")
+```
+```{r salive, context="server", echo=FALSE}
+output$keep_alive <- renderText({
+  req(input$alive_count)
+  input$alive_count
+})
+```
+```{r child = 'content/why.Rmd'}
+```
+
+```{r child = 'content/intro.Rmd'}
+```
+
+```{r child = 'content/vectors.Rmd'}
+```
+
+```{r child = 'content/rules.Rmd'}
+```
+
+```{r child = 'content/discrete.Rmd'}
+```
+
+```{r child = 'content/cdfs.Rmd'}
+```
+
+```{r child = 'content/marginal.Rmd'}
+```
+
+```{r child = 'content/total.Rmd'}
+```
+
+```{r child = 'content/calculus.Rmd'}
+```
+
+```{r child = 'content/pdfs.Rmd'}
+```
+
+```{r child = 'content/expectations.Rmd'}
+```
+
+```{r child = 'content/matrix.Rmd'}
+```
+
+```{r child = 'content/models.Rmd'}
+```
+
+```{r child = 'content/stats.Rmd'}
+```
+
+```{r child = 'content/glossary.Rmd'}
+```
+
+```{r child = 'content/resources.Rmd'}
+```
